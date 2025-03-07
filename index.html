@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Easy</title>
+    <title>Work Easy - ابدأ بسهولة</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Firebase SDK (Modular v9) -->
     <script type="module">
@@ -21,51 +21,69 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        window.firebaseAuth = auth; // للوصول إليها في script.js
-        window.firestoreDb = db;   // للوصول إليها في script.js
+        window.firebaseAuth = auth;
+        window.firestoreDb = db;
     </script>
     <!-- Google Sign-In -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="476064890981-4jtltptkh5rdkc80ra88eeg88fr1l97r.apps.googleusercontent.com">
 </head>
 <body>
-    <div id="loader">
-        <div class="spinner"></div>
-        <p>جاري التحميل...</p>
+    <!-- شاشة التحميل -->
+    <div id="loader" class="loader">
+        <div class="galaxy"></div>
+        <div class="stars"></div>
+        <div class="loader-text">Work Easy</div>
     </div>
 
-    <div id="loginPage" class="hidden">
-        <div class="full-screen">
-            <h1 class="site-title">Work Easy</h1>
-            <section class="form-section">
-                <h2>تسجيل الدخول</h2>
-                <form id="loginForm">
-                    <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-                    <input type="password" name="password" placeholder="كلمة المرور" required>
-                    <button type="submit">تسجيل الدخول</button>
+    <!-- صفحة تسجيل الدخول -->
+    <div id="loginPage" class="page hidden">
+        <div class="background-overlay"></div>
+        <div class="container">
+            <h1 class="title cosmic-text">Work Easy</h1>
+            <div class="form-box">
+                <h2 class="form-title cosmic-text">ابدأ رحلتك!</h2>
+                <form id="loginForm" class="form">
+                    <input type="email" name="email" placeholder="البريد الإلكتروني" required class="input-field">
+                    <input type="password" name="password" placeholder="كلمة المرور" required class="input-field">
+                    <button type="submit" class="btn cosmic-btn">تسجيل الدخول</button>
                 </form>
-                <p>أو تسجيل الدخول باستخدام:</p>
+                <p class="alternative cosmic-text">أو استخدم حسابك:</p>
                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                <p>ليس لديك حساب؟ <a href="#" onclick="showRegister()">سجل الآن</a></p>
-            </section>
+                <p class="switch-text">جديد؟ <a href="#" onclick="showRegister()" class="link cosmic-text">انضم الآن</a></p>
+            </div>
         </div>
     </div>
 
-    <div id="registerPage" class="hidden">
-        <div class="full-screen">
-            <h1 class="site-title">Work Easy</h1>
-            <section class="form-section">
-                <h2>تسجيل مستخدم جديد</h2>
-                <form id="registerUserForm">
-                    <input type="text" name="firstName" placeholder="الاسم الأول" required>
-                    <input type="text" name="lastName" placeholder="الاسم الثاني" required>
-                    <input type="number" name="age" placeholder="العمر" required>
-                    <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-                    <input type="password" name="password" placeholder="كلمة المرور" required>
-                    <button type="submit">تسجيل</button>
+    <!-- صفحة التسجيل -->
+    <div id="registerPage" class="page hidden">
+        <div class="background-overlay"></div>
+        <div class="container">
+            <h1 class="title cosmic-text">Work Easy</h1>
+            <div class="form-box">
+                <h2 class="form-title cosmic-text">كن جزءًا من المستقبل!</h2>
+                <form id="registerUserForm" class="form">
+                    <input type="text" name="firstName" placeholder="الاسم الأول" required class="input-field">
+                    <input type="text" name="lastName" placeholder="الاسم الثاني" required class="input-field">
+                    <input type="number" name="age" placeholder="العمر" required class="input-field">
+                    <input type="email" name="email" placeholder="البريد الإلكتروني" required class="input-field">
+                    <input type="password" name="password" placeholder="كلمة المرور" required class="input-field">
+                    <button type="submit" class="btn cosmic-btn">تسجيل</button>
                 </form>
-                <p>لديك حساب؟ <a href="#" onclick="showLogin()">تسجيل الدخول</a></p>
-            </section>
+                <p class="switch-text">لديك حساب؟ <a href="#" onclick="showLogin()" class="link cosmic-text">تسجيل الدخول</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- صفحة الترحيب -->
+    <div id="dashboard" class="page hidden">
+        <div class="background-overlay"></div>
+        <div class="container">
+            <h1 class="title cosmic-text">مرحبًا بك في Work Easy!</h1>
+            <div class="dashboard-content">
+                <p id="welcomeMessage" class="welcome-text cosmic-text"></p>
+                <button onclick="signOut()" class="btn cosmic-btn">تسجيل الخروج</button>
+            </div>
         </div>
     </div>
 

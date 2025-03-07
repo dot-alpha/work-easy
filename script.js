@@ -1,25 +1,25 @@
-// لا حاجة لاستيراد Firebase هنا لأنه تم تهيئته في index.html
-
-// الوصول إلى الكائنات من الـ window
 const auth = window.firebaseAuth;
 const db = window.firestoreDb;
 
-// إخفاء شاشة التحميل
+// شاشة التحميل مع انتقال متحرك
 window.addEventListener('load', () => {
     setTimeout(() => {
-        document.getElementById('loader').style.display = 'none';
-        document.getElementById('loginPage').classList.remove('hidden');
-    }, 2000);
-});
-
-// الدائرة المتحركة
-const cursorCircle = document.createElement('div');
-cursorCircle.id = 'cursorCircle';
-document.body.appendChild(cursorCircle);
-
-document.addEventListener('mousemove', (e) => {
-    cursorCircle.style.left = `${e.pageX - 10}px`;
-    cursorCircle.style.top = `${e.pageY - 10}px`;
+        const loader = document.getElementById('loader');
+        loader.style.opacity = '0';
+        loader.style.transform = 'scale(1.2)';
+        setTimeout(() => {
+            loader.style.display = 'none';
+            const loginPage = document.getElementById('loginPage');
+            loginPage.classList.remove('hidden');
+            loginPage.style.opacity = '0';
+            loginPage.style.transform = 'translateY(100px) scale(0.95)';
+            setTimeout(() => {
+                loginPage.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                loginPage.style.opacity = '1';
+                loginPage.style.transform = 'translateY(0) scale(1)';
+            }, 50);
+        }, 800);
+    }, 2500);
 });
 
 // تسجيل الدخول العادي
@@ -29,14 +29,14 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
     const password = e.target.password.value;
     auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            alert('تم تسجيل الدخول بنجاح!');
+            showDashboard(userCredential.user);
         })
         .catch((error) => {
             alert('خطأ: ' + error.message);
         });
 });
 
-// تسجيل مستخدم جديد وحفظ البيانات في Firestore
+// تسجيل مستخدم جديد
 document.getElementById('registerUserForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -58,15 +58,14 @@ document.getElementById('registerUserForm').addEventListener('submit', (e) => {
             });
         })
         .then(() => {
-            alert('تم التسجيل بنجاح!');
-            showLogin();
+            showDashboard(auth.currentUser);
         })
         .catch((error) => {
             alert('خطأ: ' + error.message);
         });
 });
 
-// تسجيل الدخول بـ Google وحفظ البيانات
+// تسجيل الدخول بـ Google
 function onSignIn(googleUser) {
     const profile = googleUser.getBasicProfile();
     const idToken = googleUser.getAuthResponse().id_token;
@@ -82,20 +81,83 @@ function onSignIn(googleUser) {
             }, { merge: true });
         })
         .then(() => {
-            alert(`مرحبًا ${profile.getName()}!`);
+            showDashboard(auth.currentUser);
         })
         .catch((error) => {
             alert('خطأ: ' + error.message);
         });
 }
 
-// التبديل بين الصفحات
-function showRegister() {
+// عرض صفحة الترحيب
+function showDashboard(user) {
     document.getElementById('loginPage').classList.add('hidden');
-    document.getElementById('registerPage').classList.remove('hidden');
+    document.getElementById('registerPage').classList.add('hidden');
+    const dashboard = document.getElementById('dashboard');
+    dashboard.classList.remove('hidden');
+    dashboard.style.opacity = '0';
+    dashboard.style.transform = 'translateY(100px) scale(0.95)';
+    setTimeout(() => {
+        dashboard.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        dashboard.style.opacity = '1';
+        dashboard.style.transform = 'translateY(0) scale(1)';
+    }, 50);
+    document.getElementById('welcomeMessage').textContent = `مرحبًا ${user.displayName || user.email}! استمتع بتجربة Work Easy الخارقة!`;
+}
+
+// تسجيل الخروج
+function signOut() {
+    auth.signOut().then(() => {
+        const dashboard = document.getElementById('dashboard');
+        dashboard.style.opacity = '0';
+        dashboard.style.transform = 'translateY(100px) scale(0.95)';
+        setTimeout(() => {
+            dashboard.classList.add('hidden');
+            const loginPage = document.getElementById('loginPage');
+            loginPage.classList.remove('hidden');
+            loginPage.style.opacity = '0';
+            loginPage.style.transform = 'translateY(100px) scale(0.95)';
+            setTimeout(() => {
+                loginPage.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                loginPage.style.opacity = '1';
+                loginPage.style.transform = 'translateY(0) scale(1)';
+            }, 50);
+        }, 800);
+    });
+}
+
+// التنقل بين الصفحات
+function showRegister() {
+    const loginPage = document.getElementById('loginPage');
+    loginPage.style.opacity = '0';
+    loginPage.style.transform = 'translateY(100px) scale(0.95)';
+    setTimeout(() => {
+        loginPage.classList.add('hidden');
+        const registerPage = document.getElementById('registerPage');
+        registerPage.classList.remove('hidden');
+        registerPage.style.opacity = '0';
+        registerPage.style.transform = 'translateY(100px) scale(0.95)';
+        setTimeout(() => {
+            registerPage.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            registerPage.style.opacity = '1';
+            registerPage.style.transform = 'translateY(0) scale(1)';
+        }, 50);
+    }, 800);
 }
 
 function showLogin() {
-    document.getElementById('registerPage').classList.add('hidden');
-    document.getElementById('loginPage').classList.remove('hidden');
+    const registerPage = document.getElementById('registerPage');
+    registerPage.style.opacity = '0';
+    registerPage.style.transform = 'translateY(100px) scale(0.95)';
+    setTimeout(() => {
+        registerPage.classList.add('hidden');
+        const loginPage = document.getElementById('loginPage');
+        loginPage.classList.remove('hidden');
+        loginPage.style.opacity = '0';
+        loginPage.style.transform = 'translateY(100px) scale(0.95)';
+        setTimeout(() => {
+            loginPage.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            loginPage.style.opacity = '1';
+            loginPage.style.transform = 'translateY(0) scale(1)';
+        }, 50);
+    }, 800);
 }
