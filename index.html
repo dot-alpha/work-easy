@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Work Easy</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDK (Modular v9) -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
+        const firebaseConfig = {
+            apiKey: "AIzaSyAnh4QyjQVvxhxb6yzO3JuZnSCw7Zc9uPo",
+            authDomain: "workeasydb.firebaseapp.com",
+            projectId: "workeasydb",
+            storageBucket: "workeasydb.firebasestorage.app",
+            messagingSenderId: "703114603310",
+            appId: "1:703114603310:web:67253c3b20490f33c8a8bf"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        window.firebaseAuth = auth; // للوصول إليها في script.js
+        window.firestoreDb = db;   // للوصول إليها في script.js
+    </script>
+    <!-- Google Sign-In -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="476064890981-4jtltptkh5rdkc80ra88eeg88fr1l97r.apps.googleusercontent.com">
 </head>
