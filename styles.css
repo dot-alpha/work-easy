@@ -1,0 +1,111 @@
+body {
+    background: linear-gradient(135deg, #8a4af3, #1e1e1e);
+    color: #fff;
+    line-height: 1.6;
+    min-height: 100vh;
+    animation: gradientChange 10s infinite;
+}
+
+@keyframes gradientChange {
+    0% { background: linear-gradient(135deg, #8a4af3, #1e1e1e); }
+    25% { background: linear-gradient(135deg, #00ddeb, #808080); }
+    50% { background: linear-gradient(135deg, #1e90ff, #333333); }
+    75% { background: linear-gradient(135deg, #d4a5ff, #000000); }
+    100% { background: linear-gradient(135deg, #8a4af3, #1e1e1e); }
+}
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #808080;
+    border-top: 5px solid #1e90ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hidden {
+    display: none;
+}
+
+.full-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.site-title {
+    color: #d4a5ff;
+    font-size: 2.5em;
+    text-align: center;
+    padding: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.form-section {
+    background: rgba(51, 51, 51, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+}
+
+h2 {
+    color: #d4a5ff;
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 12px;
+    border: 1px solid #8a4af3;
+    border-radius: 5px;
+    font-size: 1em;
+    background: #fff;
+    color: #333;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+button {
+    background: #1e90ff;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.g-signin2 {
+    margin: 10px 0;
+}
+
+#cursorCircle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #1e90ff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 999;
+    transition: transform 0.1s ease;
+}

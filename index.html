@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Easy</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="476064890981-4jtltptkh5rdkc80ra88eeg88fr1l97r.apps.googleusercontent.com">
+</head>
+<body>
+    <div id="loader">
+        <div class="spinner"></div>
+        <p>جاري التحميل...</p>
+    </div>
+
+    <div id="loginPage" class="hidden">
+        <div class="full-screen">
+            <h1 class="site-title">Work Easy</h1>
+            <section class="form-section">
+                <h2>تسجيل الدخول</h2>
+                <form id="loginForm">
+                    <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+                    <input type="password" name="password" placeholder="كلمة المرور" required>
+                    <button type="submit">تسجيل الدخول</button>
+                </form>
+                <p>أو تسجيل الدخول باستخدام:</p>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <p>ليس لديك حساب؟ <a href="#" onclick="showRegister()">سجل الآن</a></p>
+            </section>
+        </div>
+    </div>
+
+    <div id="registerPage" class="hidden">
+        <div class="full-screen">
+            <h1 class="site-title">Work Easy</h1>
+            <section class="form-section">
+                <h2>تسجيل مستخدم جديد</h2>
+                <form id="registerUserForm">
+                    <input type="text" name="firstName" placeholder="الاسم الأول" required>
+                    <input type="text" name="lastName" placeholder="الاسم الثاني" required>
+                    <input type="number" name="age" placeholder="العمر" required>
+                    <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+                    <input type="password" name="password" placeholder="كلمة المرور" required>
+                    <button type="submit">تسجيل</button>
+                </form>
+                <p>لديك حساب؟ <a href="#" onclick="showLogin()">تسجيل الدخول</a></p>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
